@@ -1,0 +1,106 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id       String   @id @default(auto()) @map("_id") @db.ObjectId
+  email    String   @unique
+  name     String?
+  address  Address?
+  password String
+}
+
+// Address is an embedded document
+type Address {
+  street String
+  city   String
+  state  String
+  zip    String
+}
+
+model Product {
+  id          String      @id @default(auto()) @map("_id") @db.ObjectId
+  name        String      @unique
+  description String?
+  isFeatured  Boolean     @default(false)
+  price       Float
+  categoryId  String      @db.ObjectId // Foreign Key to Category
+  category    Category    @relation("CategoryToProduct", fields: [categoryId], references: [id])
+  sizes       Size[]      @relation("SizeToProduct")
+  images      Image[] // Relation to Image model
+  createdAt   DateTime?   @default(now())
+  updatedAt   DateTime?   @updatedAt
+  OrderItem   OrderItem[]
+}
+
+model Category {
+  id        String    @id @default(auto()) @map("_id") @db.ObjectId
+  name      String    @unique
+  products  Product[] @relation("CategoryToProduct")
+  createdAt DateTime? @default(now())
+  updatedAt DateTime? @updatedAt
+}
+
+model Size {
+  id        String    @id @default(auto()) @map("_id") @db.ObjectId
+  type      String
+  stock     Int       @default(0)
+  productId String    @db.ObjectId // Foreign Key to Product, many-many relationship
+  product   Product   @relation("SizeToProduct", fields: [productId], references: [id], onDelete: Cascade)
+  createdAt DateTime? @default(now())
+  updatedAt DateTime? @updatedAt
+}
+
+// model SizeType {
+//   id   String @id @default(auto()) @map("_id") @db.ObjectId
+//   name String
+// }
+
+// model Stock {
+//   id        String    @id @default(auto()) @map("_id") @db.ObjectId
+//   quantity  String    @unique
+//   size      Size?     @relation("StockToSize") // If there is no size, assume 'freesize'
+//   createdAt DateTime? @default(now())
+//   updatedAt DateTime? @updatedAt
+// }
+
+model Image {
+  id        String  @id @default(auto()) @map("_id") @db.ObjectId
+  productId String  @db.ObjectId // Foreign Key to Product
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  url       String // URL of the image
+
+  @@index([productId])
+}
+
+model Order {
+  id         String      @id @default(auto()) @map("_id") @db.ObjectId
+  orderItems OrderItem[] // Relation to OrderItem model
+  isPaid     Boolean     @default(false)
+  phone      String      @default("")
+  address    String      @default("")
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+}
+
+// Intermediary for a many-to-many relationship
+model OrderItem {
+  id        String  @id @default(auto()) @map("_id") @db.ObjectId
+  orderId   String  @db.ObjectId // Foreign Key to Order
+  order     Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  productId String  @db.ObjectId // Foreign Key to Product
+  product   Product @relation(fields: [productId], references: [id])
+  size      String
+  quantity  Int
+
+  @@index([orderId])
+  @@index([productId])
+}
