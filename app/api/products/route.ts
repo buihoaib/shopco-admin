@@ -63,8 +63,16 @@ export async function POST(request: Request) {
 export async function GET(
   request: Request,
 ) {
+  const { searchParams } = new URL(request.url)
+  const categoryId = searchParams.get('categoryId') || undefined;
+  const isFeatured = searchParams.get('isFeatured');
+
   try {
     const products = await prisma.product.findMany({
+      where: {
+        categoryId,
+        isFeatured: isFeatured ? true : undefined,
+      },
       include: {
         images: true,
         category: true,
