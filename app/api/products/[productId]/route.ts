@@ -62,6 +62,7 @@ export async function PATCH(
 
         const {
             name,
+            isFeatured,
             price,
             categoryId,
             images,
@@ -106,6 +107,7 @@ export async function PATCH(
                 sizes: {
                     deleteMany: {},
                 },
+                isFeatured,
             },
         });
 

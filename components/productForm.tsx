@@ -16,6 +16,7 @@ import {
     FormItem,
     FormLabel,
     FormMessage,
+    FormDescription
 } from "@/components/ui/form"
 import {
     Select,
@@ -25,8 +26,9 @@ import {
     SelectValue
 } from "@/components/ui/select"
 import { Input } from "@/components/ui/input"
-import { AlertModal } from "@/components/alertModal"
+import { Checkbox } from "@/components/ui/checkbox"
 import { Category, Image, Product } from "@prisma/client"
+import { AlertModal } from "@/components/alertModal"
 import ImageUpload from "@/components/imageUpload"
 import SizeTable from "@/components/sizeTable"
 
@@ -35,6 +37,7 @@ const productFormSchema = z.object({
     // description: z.string().min(1).optional(),
     price: z.coerce.number().min(1),
     categoryId: z.string().min(1),
+    isFeatured: z.boolean(),
     images: z.array(
         z.object({
             url: z.string()
@@ -55,13 +58,11 @@ interface ProductFormProps {
         images: Image[]
     } | null;
     categories: Category[];
-    //sizeTypes: SizeType[];
 };
 
 const ProductForm: React.FC<ProductFormProps> = ({
     initialData,
     categories,
-    //sizeTypes
 }) => {
     const params = useParams();
     const router = useRouter();
@@ -72,11 +73,6 @@ const ProductForm: React.FC<ProductFormProps> = ({
     const title = initialData ? 'Edit product' : 'Create product';
     const toastMessage = initialData ? 'Product updated.' : 'Product created.';
     const action = initialData ? 'Save changes' : 'Create';
-
-    // const defaultSizes = []
-    // const addDefaultSizes = () => {
-    //     sizeTypes.forEach
-    // }
 
     useEffect(() => {
         console.log('')
@@ -232,6 +228,29 @@ const ProductForm: React.FC<ProductFormProps> = ({
                                         </SelectContent>
                                     </Select>
                                     <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                        <FormField
+                            control={form.control}
+                            name="isFeatured"
+                            render={({ field }) => (
+                                <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
+                                    <FormControl>
+                                        <Checkbox
+                                            checked={field.value}
+                                            // @ts-ignore
+                                            onCheckedChange={field.onChange}
+                                        />
+                                    </FormControl>
+                                    <div className="space-y-1 leading-none">
+                                        <FormLabel>
+                                            Featured
+                                        </FormLabel>
+                                        <FormDescription>
+                                            This product will appear on the home page
+                                        </FormDescription>
+                                    </div>
                                 </FormItem>
                             )}
                         />
