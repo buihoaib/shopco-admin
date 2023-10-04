@@ -47,6 +47,7 @@ export async function POST(
     const currentProduct = products.find((product) => product.id = item.productId)!
 
     const productName = `${currentProduct.name}-size-${item.size}`
+
     line_items.push({
       quantity: item.quantity,
       price_data: {
@@ -54,7 +55,7 @@ export async function POST(
         product_data: {
           name: productName
         },
-        unit_amount: currentProduct.price * 100
+        unit_amount: Math.round(currentProduct.price * 100)
       }
     });
   });
