@@ -81,12 +81,12 @@ export default function SideNavBar() {
                     </NavigationMenuItem> */}
                 </NavigationMenuList >
 
-                <div className='flex flex-row gap-2 px-5 font-semibold hover:underline'>
+                {/* <div className='flex flex-row gap-2 px-5 font-semibold hover:underline'>
                     <LogOut className={inactiveIcon} />
                     <button onClick={() => signOut()}>
                         Sign out
                     </button>
-                </div>
+                </div> */}
             </div>
         </NavigationMenu >
     )
