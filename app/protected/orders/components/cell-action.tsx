@@ -16,10 +16,10 @@ import {
 } from "@/components/ui/dropdown-menu";
 // import { useCategoryModal } from "@/hooks/use-category-modal";
 import { AlertModal } from "@/components/alertModal";
-import { ProductColumn } from "./columns";
+import { OrderColumn } from "./columns";
 
 interface CellActionProps {
-    data: ProductColumn;
+    data: OrderColumn;
 }
 
 export const CellAction: React.FC<CellActionProps> = ({
