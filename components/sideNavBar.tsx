@@ -71,14 +71,14 @@ export default function SideNavBar() {
                             </NavigationMenuLink>
                         </Link>
                     </NavigationMenuItem>
-                    <NavigationMenuItem className={pathname?.includes('/settings') ? activeLink : inactiveLink}>
+                    {/* <NavigationMenuItem className={pathname?.includes('/settings') ? activeLink : inactiveLink}>
                         <Settings className={pathname === '/settings' ? activeIcon : inactiveIcon} />
                         <Link href="/protected/settings" legacyBehavior passHref>
                             <NavigationMenuLink>
                                 Settings
                             </NavigationMenuLink>
                         </Link>
-                    </NavigationMenuItem>
+                    </NavigationMenuItem> */}
                 </NavigationMenuList >
 
                 <div className='flex flex-row gap-2 px-5 font-semibold hover:underline'>
