@@ -15,7 +15,7 @@ The website is built in Tech Stack below and deployed on [Vercel](https://vercel
 - [Next.js](https://nextjs.org) for building React Components.
 - [tailwindcss](https://tailwindcss.com) for styling.
 - [MongoDB](https://www.mongodb.com/) for database.
-- [Prisma](https://vercel.com) for object–relational mapping.
+- [Prisma](https://www.prisma.io/) for object–relational mapping.
 - [Stripe](https://stripe.com/) for payment.
 - [Vercel](https://vercel.com) for deployments and CI/CD.
 
