@@ -10,6 +10,8 @@ interface ClientOrderItems {
   quantity: number;
 }
 
+export const revalidate = 0;
+
 const corsHeaders = {
   "Access-Control-Allow-Credentials": "true",
   "Access-Control-Allow-Origin": "*",
