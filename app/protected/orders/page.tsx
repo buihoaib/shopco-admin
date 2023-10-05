@@ -1,6 +1,6 @@
 import { format } from "date-fns";
 
-import prismadb from "@/lib/prisma";
+import prisma from "@/lib/prisma";
 import { formatter } from "@/lib/utils";
 
 import { OrderColumn } from "./components/columns"
@@ -10,7 +10,7 @@ export const revalidate = 0;
 
 const OrdersPage = async ({
 }) => {
-    const orders = await prismadb.order.findMany({
+    const orders = await prisma.order.findMany({
         include: {
             orderItems: {
                 include: {
