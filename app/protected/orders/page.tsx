@@ -6,6 +6,7 @@ import { formatter } from "@/lib/utils";
 import { OrderColumn } from "./components/columns"
 import OrderClient from "./components/client";
 
+export const revalidate = 0;
 
 const OrdersPage = async ({
 }) => {
