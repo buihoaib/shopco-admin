@@ -10,8 +10,6 @@ interface ClientOrderItems {
   quantity: number;
 }
 
-export const revalidate = 0;
-
 const corsHeaders = {
   "Access-Control-Allow-Credentials": "true",
   "Access-Control-Allow-Origin": "*",
@@ -46,7 +44,7 @@ export async function POST(
   const line_items: Stripe.Checkout.SessionCreateParams.LineItem[] = [];
 
   clientOrderItems.forEach((item: any, index: number) => {
-    const currentProduct = products.find((product) => product.id = item.productId)!
+    const currentProduct = products.find((product) => product.id === item.productId)!
 
     const productName = `${currentProduct.name}-size-${item.size}`
 

@@ -5,8 +5,6 @@ import { NextResponse } from "next/server"
 import { stripe } from "@/lib/stripe"
 import prisma from "@/lib/prisma"
 
-export const revalidate = 0;
-
 export async function POST(req: Request) {
     const body = await req.text()
     const signature = headers().get("Stripe-Signature") as string
