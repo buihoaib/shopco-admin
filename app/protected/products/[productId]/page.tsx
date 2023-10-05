@@ -1,6 +1,8 @@
 import prisma from "@/lib/prisma";
 import ProductForm from "@/components/productForm";
 
+export const revalidate = 0;
+
 export default async function ProductPage({
     params,
 }: {

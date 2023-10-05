@@ -13,6 +13,8 @@ import { getTotalSales } from "@/actions/getTotalSales";
 import { getTotalStocks } from "@/actions/getTotalStocks";
 import { getGraphRevenue } from "@/actions/getGraphRevenue";
 
+export const revalidate = 0;
+
 export default async function Dashboard() {
   const totalRevenue = await getTotalRevenue();
   const totalSales = await getTotalSales();

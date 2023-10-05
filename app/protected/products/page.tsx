@@ -3,6 +3,8 @@ import { format } from "date-fns";
 
 import ProductClient from "./components/client";
 
+export const revalidate = 0;
+
 export default async function ProductsPage() {
     const products = await prisma.product.findMany({
         include: {

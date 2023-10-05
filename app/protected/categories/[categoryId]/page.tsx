@@ -1,6 +1,8 @@
 import prisma from "@/lib/prisma";
 import CategoryForm from "@/components/categoryForm";
 
+export const revalidate = 0;
+
 export default async function CategoryPage({
     params,
 }: {
